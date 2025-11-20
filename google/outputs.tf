@@ -15,5 +15,13 @@ output "gke_master_endpoint" {
   value       = google_container_cluster.gke_cluster.endpoint
 }
 
+# --- OUTPUT PARA LA IP ESTÁTICA PÚBLICA ---
+
+output "ingress_static_ip_address" {
+  description = "IP pública estática reservada para el GKE Ingress."
+  # Esta IP se referencia del recurso 'google_compute_global_address.ingress_static_ip'
+  value       = google_compute_global_address.ingress_static_ip.address
+}
+
 # Para conectarte al clúster, utiliza:
 # gcloud container clusters get-credentials ${gke_cluster_name} --region ${gke_cluster_location} --project ${gcp_project_id}

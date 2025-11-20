@@ -1,0 +1,20 @@
+Cada vez que se haga un Apply, va a soltar una IP. esa ip es cambiante, por lo tanto, para sacar los certificados TLS, ir al archivo values-dev.yml y cambiar el host-ip por el valor de la IP nueva. Luego sacar los certificados TLS con openssl con este comando 
+
+# PASO A: Reemplaza <YOUR_STATIC_IP> con la IP que obtuviste de Terraform (ej: 34.118.55.123)
+export STATIC_IP="<YOUR_STATIC_IP>" 
+
+# PASO B: Generar el certificado usando la IP como Nombre Común (CN)
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -keyout tls.key \
+  -out tls.crt \
+  -subj "/CN=${STATIC_IP}/O=SelfSignedProject"
+  
+  
+  
+Luego que te soltaran la ip publica, ahora si hacer estos 2 comandos 
+
+kubectl delete secret api-gateway-selfsigned-cert -n dev --ignore-not-found=true
+kubectl create secret tls api-gateway-selfsigned-cert \
+  --cert=tls.crt \
+  --key=tls.key \
+  -n dev
