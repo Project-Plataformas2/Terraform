@@ -76,7 +76,7 @@ resource "google_container_node_pool" "primary_nodes" {
   }
 
   autoscaling {
-    max_node_count = 4 # max_count de AKS
+    max_node_count = 6 # max_count de AKS
     min_node_count = 2 
   }
 
@@ -94,4 +94,9 @@ resource "google_container_node_pool" "primary_nodes" {
   }
 }
 
-# NOTA: Los recursos 'azurerm_role_assignment' (para el LB de AKS) y 'azurerm_resource_group' se eliminan.
+# 4. IP ESTÁTICA GLOBAL (PÚBLICA) para el GKE Ingress
+# Esto asegura que la IP del Balanceador de Carga sea fija.
+resource "google_compute_global_address" "ingress_static_ip" {
+  name    = "ecommerce-ingress-ip-${var.prefix}"
+  project = var.gcp_project_id
+}
