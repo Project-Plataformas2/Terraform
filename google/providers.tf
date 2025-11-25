@@ -5,6 +5,10 @@ terraform {
       version = "~> 5.0"
     }
   }
+   backend "gcs" {
+    bucket  = "plataformas2-terraform-state"   # tu bucket de Terraform
+    prefix  = "ecommerce-deploy/state"      # carpeta dentro del bucket
+  }
 }
 
 provider "google" {
