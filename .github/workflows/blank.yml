@@ -1,0 +1,44 @@
+name: Terraform Destroy GKE
+
+on:
+  workflow_dispatch:   # Puedes dispararlo manualmente desde GitHub
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_ID: plataformas2-356563
+      REGION: us-central1
+      CLUSTER_NAME: mygpccluster
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.0
+
+      - name: Terraform Init
+        working-directory: ./google
+        run: terraform init
+
+      - name: Authenticate gcloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Get GKE Credentials
+        run: |
+          gcloud container clusters get-credentials $CLUSTER_NAME \
+            --region $REGION \
+            --project $PROJECT_ID || echo "Cluster may not exist, continuing..."
+
+      - name: Terraform Destroy
+        working-directory: ./google
+        run: terraform destroy -auto-approve
+
+      - name: Confirm deletion
+        run: |
+          echo "Terraform destroy finished. Resources should be deleted."
