@@ -52,7 +52,7 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
           repository: Project-Plataformas2/Ecommerce-deploy
-          event-type: update-image-tags
+          event-type: terraform-finished
           client-payload: |
             {
               "STATIC_IP": "${{ env.STATIC_IP }}"
