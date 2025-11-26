@@ -201,7 +201,7 @@ Esto garantiza *estado compartido y seguro*.
 
 ## **4. Comandos para ejecutar Terraform correctamente**
 
-### ** Autenticación inicial**
+### **Autenticación inicial**
 
 ```bash
 gcloud auth login
@@ -255,7 +255,7 @@ kubectl get nodes
 
 ---
 
-### ** Ver la IP pública asignada**
+### **Ver la IP pública asignada**
 
 ```bash
 terraform output ingress_static_ip_address
