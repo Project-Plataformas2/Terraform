@@ -55,7 +55,7 @@ Archivos clave:
 
 ##  **3. Descripción detallada de cada componente**
 
-### ###  **Habilitación de APIs**
+###  **Habilitación de APIs**
 
 Terraform habilita automáticamente las APIs requeridas:
 
@@ -263,7 +263,7 @@ terraform output ingress_static_ip_address
 
 ---
 
-##**5. Eliminación del clúster**
+## **5. Eliminación del clúster**
 
 Debido a que GKE tiene recursos dependientes, se recomienda:
 
@@ -279,7 +279,7 @@ gcloud container clusters delete <nombre> --region <region>
 
 ---
 
-##**6. Contexto académico del proyecto**
+## **6. Contexto académico del proyecto**
 
 Este repositorio fue creado como parte del curso **Plataformas II**, donde se integra Google Cloud Platform con Kubernetes y herramientas de infraestructura como código.
 
